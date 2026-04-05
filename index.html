@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Prime Tec – Empowering Your Digital Success</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #0A2540; --navy-dark: #061828; --orange: #FF7A00; --orange-light: #FF9A40;
+  --white: #ffffff; --gray-50: #f8fafd; --gray-100: #eef2f8; --gray-400: #8fa4c0; --gray-600: #4a6380;
+  --font-display: 'Syne', sans-serif; --font-body: 'DM Sans', sans-serif;
+  --radius-lg: 20px; --transition: 0.35s cubic-bezier(0.4,0,0.2,1);
+  scroll-behavior: smooth;
+}
+html { font-size: 16px; }
+body { font-family: var(--font-body); background: var(--white); color: var(--navy); overflow-x: hidden; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--navy-dark); }
+::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 3px; }
+
+/* NAVBAR */
+#navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: 0 5vw; height: 72px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: transparent; transition: background var(--transition), box-shadow var(--transition);
+}
+#navbar.scrolled { background: rgba(10,37,64,0.96); backdrop-filter: blur(16px); box-shadow: 0 1px 0 rgba(255,122,0,0.12); }
+.nav-logo { font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; color: var(--white); text-decoration: none; letter-spacing: -0.02em; }
+.nav-logo span { color: var(--orange); }
+.nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+.nav-links a { font-size: 0.9rem; font-weight: 500; color: rgba(255,255,255,0.75); text-decoration: none; transition: color var(--transition); }
+.nav-links a:hover { color: var(--orange); }
+.nav-cta { padding: 10px 22px; background: var(--orange) !important; color: white !important; border-radius: 8px; font-weight: 600 !important; transition: all var(--transition) !important; }
+.nav-cta:hover { background: var(--orange-light) !important; transform: translateY(-1px); }
+.lang-toggle { display: flex; gap: 4px; background: rgba(255,255,255,0.08); border-radius: 8px; padding: 4px; }
+.lang-btn { padding: 4px 12px; border: none; border-radius: 6px; font-family: var(--font-body); font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all var(--transition); color: rgba(255,255,255,0.6); background: transparent; }
+.lang-btn.active { background: var(--orange); color: white; }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+.hamburger span { display: block; width: 24px; height: 2px; background: white; border-radius: 2px; }
+.mobile-menu { display: none; position: fixed; top: 72px; left: 0; right: 0; z-index: 999; background: rgba(10,37,64,0.98); backdrop-filter: blur(20px); padding: 1.5rem 5vw 2rem; flex-direction: column; gap: 1rem; border-bottom: 1px solid rgba(255,122,0,0.2); }
+.mobile-menu.open { display: flex; }
+.mobile-menu a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 1.1rem; padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); transition: color var(--transition); }
+.mobile-menu a:hover { color: var(--orange); }
+@media (max-width: 768px) { .nav-links, .lang-toggle { display: none; } .hamburger { display: flex; } }
+
+/* HERO */
+#hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 120px 5vw 80px; text-align: center; overflow: hidden; }
+.circuit-bg { position: absolute; inset: 0; background: var(--navy-dark); }
+.circuit-bg::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,122,0,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,122,0,0.06) 1px, transparent 1px); background-size: 40px 40px; }
+.circuit-bg::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(14,48,96,0.7) 0%, transparent 70%), radial-gradient(ellipse 40% 40% at 80% 80%, rgba(255,122,0,0.08) 0%, transparent 60%); }
+.circuit-nodes { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.node { position: absolute; border: 1px solid rgba(255,122,0,0.25); border-radius: 4px; animation: float 6s ease-in-out infinite; }
+.node::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 6px; height: 6px; background: var(--orange); border-radius: 50%; opacity: 0.7; }
+.hero-content { position: relative; z-index: 2; max-width: 820px; animation: heroFadeUp 1s ease both; }
+.hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 18px; background: rgba(255,122,0,0.12); border: 1px solid rgba(255,122,0,0.3); border-radius: 100px; font-size: 0.8rem; font-weight: 600; color: var(--orange-light); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1.5rem; }
+.hero-badge::before { content: ''; width: 8px; height: 8px; background: var(--orange); border-radius: 50%; animation: pulse 2s infinite; }
+.hero-title { font-family: var(--font-display); font-size: clamp(2.8rem, 7vw, 5.5rem); font-weight: 800; color: var(--white); line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 1.5rem; }
+.hero-title .brand { color: var(--orange); }
+.hero-title .slogan { display: block; font-size: 65%; background: linear-gradient(90deg, #fff 0%, rgba(255,255,255,0.6) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero-sub { font-size: clamp(1rem, 2vw, 1.2rem); color: rgba(255,255,255,0.6); max-width: 540px; margin: 0 auto 2.5rem; line-height: 1.7; font-weight: 300; }
+.hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.btn-primary { padding: 14px 32px; background: var(--orange); color: white; font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; border: none; border-radius: 10px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all var(--transition); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(255,122,0,0.4); }
+.btn-secondary { padding: 14px 32px; background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.85); font-family: var(--font-body); font-size: 0.95rem; font-weight: 500; border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all var(--transition); }
+.btn-secondary:hover { background: rgba(255,255,255,0.1); transform: translateY(-2px); }
+.hero-stats { position: relative; z-index: 2; display: flex; gap: 3rem; justify-content: center; flex-wrap: wrap; margin-top: 5rem; padding-top: 3rem; width: 100%; max-width: 720px; border-top: 1px solid rgba(255,255,255,0.08); }
+.stat-num { font-family: var(--font-display); font-size: 2rem; font-weight: 800; color: var(--orange); line-height: 1; }
+.stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.45); margin-top: 4px; letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* COMMON SECTION */
+section { padding: 100px 5vw; }
+.section-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--orange); margin-bottom: 1rem; }
+.section-tag::before { content: ''; width: 24px; height: 2px; background: var(--orange); border-radius: 2px; }
+.section-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 800; color: var(--navy); line-height: 1.15; letter-spacing: -0.025em; margin-bottom: 1rem; }
+.section-title .accent { color: var(--orange); }
+.section-sub { color: var(--gray-600); font-size: 1.05rem; max-width: 540px; line-height: 1.7; font-weight: 300; }
+.section-header { margin-bottom: 4rem; }
+
+/* SERVICES */
+#services { background: var(--gray-50); }
+.services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+.service-card { background: var(--white); border: 1px solid var(--gray-100); border-radius: var(--radius-lg); padding: 2rem; transition: all var(--transition); position: relative; overflow: hidden; }
+.service-card::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--orange); transform: scaleX(0); transform-origin: left; transition: transform var(--transition); }
+.service-card:hover { border-color: rgba(255,122,0,0.2); box-shadow: 0 20px 60px rgba(10,37,64,0.1); transform: translateY(-4px); }
+.service-card:hover::before { transform: scaleX(1); }
+.service-icon { width: 52px; height: 52px; background: rgba(255,122,0,0.08); border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; font-size: 1.5rem; transition: background var(--transition); }
+.service-card:hover .service-icon { background: rgba(255,122,0,0.15); }
+.service-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: 0.75rem; }
+.service-desc { font-size: 0.88rem; color: var(--gray-600); line-height: 1.65; }
+.service-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1rem; }
+.tag { padding: 3px 10px; background: var(--gray-50); border: 1px solid var(--gray-100); border-radius: 100px; font-size: 0.72rem; font-weight: 600; color: var(--gray-600); }
+
+/* ABOUT */
+#about { background: var(--navy); overflow: hidden; position: relative; }
+#about::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,122,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,122,0,0.04) 1px, transparent 1px); background-size: 50px 50px; }
+.about-inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+@media (max-width: 768px) { .about-inner { grid-template-columns: 1fr; gap: 3rem; } }
+.about-left .section-title { color: var(--white); }
+.about-left .section-sub { color: rgba(255,255,255,0.55); max-width: none; }
+.about-features { display: flex; flex-direction: column; gap: 1rem; margin-top: 2.5rem; }
+.about-feature { display: flex; align-items: flex-start; gap: 14px; }
+.about-feature-icon { width: 36px; height: 36px; background: rgba(255,122,0,0.12); border: 1px solid rgba(255,122,0,0.2); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1rem; }
+.about-feature-text h4 { font-family: var(--font-display); font-size: 0.9rem; font-weight: 700; color: white; margin-bottom: 2px; }
+.about-feature-text p { font-size: 0.82rem; color: rgba(255,255,255,0.45); }
+.about-card-stack { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.about-stat-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius-lg); padding: 1.5rem; text-align: center; transition: all var(--transition); }
+.about-stat-card:hover { background: rgba(255,122,0,0.06); border-color: rgba(255,122,0,0.2); }
+.about-stat-card:nth-child(2) { margin-top: 1.5rem; }
+.about-stat-card:nth-child(4) { margin-top: -1.5rem; }
+.about-stat-num { font-family: var(--font-display); font-size: 2.2rem; font-weight: 800; color: var(--orange); }
+.about-stat-label { font-size: 0.78rem; color: rgba(255,255,255,0.4); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
+
+/* PORTFOLIO */
+#portfolio { background: var(--white); }
+.portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+.portfolio-card { border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--gray-100); transition: all var(--transition); background: white; }
+.portfolio-card:hover { box-shadow: 0 24px 64px rgba(10,37,64,0.12); transform: translateY(-4px); border-color: rgba(255,122,0,0.15); }
+.portfolio-thumb { height: 200px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+.portfolio-thumb::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 60%, rgba(10,37,64,0.4) 100%); }
+.p-icon { position: relative; z-index: 2; font-size: 3rem; }
+.portfolio-body { padding: 1.5rem; }
+.portfolio-cat { font-size: 0.72rem; font-weight: 700; color: var(--orange); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+.portfolio-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: 0.5rem; }
+.portfolio-desc { font-size: 0.85rem; color: var(--gray-600); line-height: 1.6; }
+
+/* CONTACT */
+#contact { background: var(--navy); position: relative; overflow: hidden; }
+#contact::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,122,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,122,0,0.04) 1px, transparent 1px); background-size: 50px 50px; }
+.contact-inner { position: relative; z-index: 2; max-width: 600px; margin: 0 auto; text-align: center; }
+.contact-inner .section-tag { justify-content: center; }
+.contact-inner .section-title { color: white; }
+.contact-inner .section-sub { color: rgba(255,255,255,0.5); max-width: none; margin: 0 auto; }
+.contact-cards { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 2.5rem; }
+.contact-card { display: flex; align-items: center; gap: 14px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 1.1rem 1.6rem; text-decoration: none; transition: all var(--transition); min-width: 230px; }
+.contact-card:hover { background: rgba(255,122,0,0.08); border-color: rgba(255,122,0,0.3); transform: translateY(-2px); }
+.cc-icon { width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+.cc-icon.email-ic { background: rgba(255,122,0,0.15); }
+.cc-icon.wa-ic { background: rgba(37,211,102,0.15); }
+.cc-label { font-size: 0.7rem; font-weight: 700; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3px; }
+.cc-value { font-size: 0.9rem; font-weight: 500; color: white; }
+.wa-big-btn { display: inline-flex; align-items: center; gap: 12px; margin-top: 2.2rem; padding: 18px 40px; background: #25D366; color: white; font-family: var(--font-body); font-size: 1.05rem; font-weight: 700; border: none; border-radius: 14px; cursor: pointer; text-decoration: none; transition: all var(--transition); box-shadow: 0 4px 28px rgba(37,211,102,0.3); }
+.wa-big-btn:hover { background: #1ebe5a; transform: translateY(-2px); box-shadow: 0 8px 36px rgba(37,211,102,0.45); }
+.wa-big-btn svg { width: 24px; height: 24px; fill: white; flex-shrink: 0; }
+.social-row { display: flex; gap: 10px; justify-content: center; margin-top: 2rem; }
+.social-link { width: 42px; height: 42px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.45); font-size: 0.85rem; transition: all var(--transition); cursor: pointer; text-decoration: none; }
+.social-link:hover { background: rgba(255,122,0,0.15); border-color: rgba(255,122,0,0.3); color: var(--orange); }
+
+/* FOOTER — simple one-line */
+footer { background: var(--navy-dark); padding: 22px 5vw; border-top: 1px solid rgba(255,122,0,0.1); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; }
+.footer-logo { font-family: var(--font-display); font-size: 1.15rem; font-weight: 800; color: white; text-decoration: none; }
+.footer-logo span { color: var(--orange); }
+.footer-copy { font-size: 0.78rem; color: rgba(255,255,255,0.28); }
+.footer-copy b { color: var(--orange); font-weight: 600; }
+.footer-email { font-size: 0.8rem; color: rgba(255,255,255,0.32); text-decoration: none; transition: color var(--transition); }
+.footer-email:hover { color: var(--orange); }
+
+/* ANIMATIONS */
+@keyframes heroFadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.5); } }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+.fade-in { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+.d1{transition-delay:.1s} .d2{transition-delay:.2s} .d3{transition-delay:.3s} .d4{transition-delay:.4s} .d5{transition-delay:.5s}
+.back-top { position: fixed; bottom: 28px; right: 28px; z-index: 500; width: 44px; height: 44px; background: var(--orange); border: none; border-radius: 12px; color: white; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(255,122,0,0.4); transition: all var(--transition); opacity: 0; pointer-events: none; }
+.back-top.visible { opacity: 1; pointer-events: all; }
+.back-top:hover { transform: translateY(-3px); }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a class="nav-logo" href="#hero">Prime<span>Tec</span></a>
+  <ul class="nav-links">
+    <li><a href="#services" id="nv-s">Services</a></li>
+    <li><a href="#about" id="nv-a">About</a></li>
+    <li><a href="#portfolio" id="nv-p">Portfolio</a></li>
+    <li><a href="#contact" class="nav-cta" id="nv-c">Contact Us</a></li>
+  </ul>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" onclick="setLang('fr')">FR</button>
+  </div>
+  <button class="hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#services" onclick="closeMobile()" id="mn-s">Services</a>
+  <a href="#about" onclick="closeMobile()" id="mn-a">About</a>
+  <a href="#portfolio" onclick="closeMobile()" id="mn-p">Portfolio</a>
+  <a href="#contact" onclick="closeMobile()" id="mn-c">Contact Us</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="circuit-bg"></div>
+  <div class="circuit-nodes">
+    <div class="node" style="width:24px;height:24px;top:18%;left:8%;animation-delay:0s"></div>
+    <div class="node" style="width:16px;height:16px;top:35%;left:15%;animation-delay:1.2s"></div>
+    <div class="node" style="width:20px;height:20px;top:62%;left:6%;animation-delay:2.4s"></div>
+    <div class="node" style="width:18px;height:18px;top:20%;right:10%;animation-delay:0.6s"></div>
+    <div class="node" style="width:28px;height:28px;top:50%;right:7%;animation-delay:1.8s"></div>
+    <div class="node" style="width:14px;height:14px;top:76%;right:18%;animation-delay:3s"></div>
+    <div class="node" style="width:22px;height:22px;top:80%;left:30%;animation-delay:0.4s"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge" id="hero-badge">Digital Solutions Provider</div>
+    <h1 class="hero-title">
+      <span class="brand">Prime</span>Tec
+      <span class="slogan" id="hero-slogan">Empowering Your Digital Success</span>
+    </h1>
+    <p class="hero-sub" id="hero-sub">From web development to academic support — professional digital services tailored to your needs.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary" id="hero-cta">Contact Us →</a>
+      <a href="#services" class="btn-secondary" id="hero-exp">Explore Services</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item fade-in"><div class="stat-num">50+</div><div class="stat-label" id="st1">Projects Done</div></div>
+    <div class="stat-item fade-in d1"><div class="stat-num">3</div><div class="stat-label" id="st2">Languages</div></div>
+    <div class="stat-item fade-in d2"><div class="stat-num">100%</div><div class="stat-label" id="st3">Client Satisfaction</div></div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-header fade-in">
+    <div class="section-tag" id="s-tag">What We Offer</div>
+    <h2 class="section-title" id="s-title">Our <span class="accent">Services</span></h2>
+    <p class="section-sub" id="s-sub">Comprehensive digital solutions for individuals, students, and businesses.</p>
+  </div>
+  <div class="services-grid" id="services-grid"></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-inner">
+    <div class="about-left fade-in">
+      <div class="section-tag" id="a-tag">Who We Are</div>
+      <h2 class="section-title" id="a-title">Built for <span class="accent">Digital Impact</span></h2>
+      <p class="section-sub" id="a-desc">Prime Tec is a digital solutions provider offering development, academic support, and creative services. We combine technical expertise with creative thinking to deliver results that matter.</p>
+      <div class="about-features" id="about-feats"></div>
+    </div>
+    <div class="about-right fade-in d2">
+      <div class="about-card-stack" id="about-stats"></div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="section-header fade-in">
+    <div class="section-tag" id="p-tag">Our Work</div>
+    <h2 class="section-title" id="p-title">Recent <span class="accent">Projects</span></h2>
+    <p class="section-sub" id="p-sub">A snapshot of our work across development, design, and academic domains.</p>
+  </div>
+  <div class="portfolio-grid" id="portfolio-grid"></div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="section-tag" id="c-tag">Get In Touch</div>
+    <h2 class="section-title" id="c-title">Contact <span class="accent">Aya</span></h2>
+    <p class="section-sub" id="c-sub">Have a project in mind? Reach out directly — response within 24 hours.</p>
+
+    <div class="contact-cards">
+      <a href="mailto:thesisscript2@gmail.com" class="contact-card">
+        <div class="cc-icon email-ic">📧</div>
+        <div>
+          <div class="cc-label" id="c-el">Email</div>
+          <div class="cc-value">thesisscript2@gmail.com</div>
+        </div>
+      </a>
+      <a href="https://wa.me/213540142226" target="_blank" rel="noopener" class="contact-card">
+        <div class="cc-icon wa-ic">
+          <svg viewBox="0 0 24 24" style="width:24px;height:24px;fill:#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </div>
+        <div>
+          <div class="cc-label" id="c-wl">WhatsApp</div>
+          <div class="cc-value">+213 540 142 226</div>
+        </div>
+      </a>
+    </div>
+
+    <a href="https://wa.me/213540142226" target="_blank" rel="noopener" class="wa-big-btn">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      <span id="wa-txt">Chat on WhatsApp</span>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER — simple -->
+<footer>
+  <a class="footer-logo" href="#hero">Prime<span>Tec</span></a>
+  <div class="footer-copy" id="f-copy">© 2026 <b>Prime Tec</b> · All rights reserved</div>
+  <a href="mailto:thesisscript2@gmail.com" class="footer-email">thesisscript2@gmail.com</a>
+</footer>
+
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+const DATA = {
+  en: {
+    navS:'Services', navA:'About', navP:'Portfolio', navC:'Contact Us',
+    badge:'Digital Solutions Provider', slogan:'Empowering Your Digital Success',
+    sub:'From web development to academic support — professional digital services tailored to your needs.',
+    cta:'Contact Us →', exp:'Explore Services',
+    st1:'Projects Done', st2:'Languages', st3:'Client Satisfaction',
+    sTag:'What We Offer', sSub:'Comprehensive digital solutions for individuals, students, and businesses.',
+    aTag:'Who We Are', aDesc:'Prime Tec is a digital solutions provider offering development, academic support, and creative services. We combine technical expertise with creative thinking to deliver results that matter.',
+    pTag:'Our Work', pSub:'A snapshot of our work across development, design, and academic domains.',
+    cTag:'Get In Touch', cTitle:'Contact <span class="accent">Aya</span>',
+    cSub:'Have a project in mind? Reach out directly — response within 24 hours.',
+    cEl:'Email', cWl:'WhatsApp', waTxt:'Chat on WhatsApp',
+    fCopy:'© 2024 <b>Prime Tec</b> · All rights reserved',
+    feats:[
+      {i:'🚀',t:'Fast Delivery',d:'Efficient workflows, on-time results.'},
+      {i:'🌐',t:'Multilingual',d:'Arabic, French, and English support.'},
+      {i:'🎯',t:'Tailored Solutions',d:'Every project customized to your needs.'},
+    ],
+    stats:[{n:'50+',l:'Projects'},{n:'3',l:'Languages'},{n:'24h',l:'Response'}],
+    svcs:[
+      {e:'💻',t:'Web & Mobile Dev',d:'Full-stack apps with React, Node.js, PostgreSQL, and PHP. Responsive and scalable.',g:['React','Node.js','PostgreSQL','PHP']},
+      {e:'📝',t:'Thesis & Report Assistance',d:'Academic writing in Word and LaTeX. Arabic, French, and English supported.',g:['Word','LaTeX','Arabic','French','English']},
+      {e:'🎨',t:'Logo & CV Design',d:'Professional brand identity and CVs that make a lasting impression.',g:['Branding','CV','Logo','Figma']},
+      {e:'📐',t:'Math Courses & Thesis',d:'Clear math tutoring including Beamer presentations for LaTeX users.',g:['Beamer','LaTeX','Math','Courses']},
+      {e:'⚙️',t:'Automation Setup',d:'Streamline operations with n8n workflows and Odoo ERP automation.',g:['n8n','Odoo','Workflows','ERP']},
+      {e:'📊',t:'PowerPoint Presentations',d:'Visually stunning slides for pitch decks, reports, and presentations.',g:['PowerPoint','Design','Slides']},
+    ],
+    projs:[
+      {e:'🛒',c:'#0A2540',t:'E-Commerce Platform',cat:'Web Development',d:'Full React + Node.js storefront with payment integration and admin dashboard.'},
+      {e:'🎓',c:'#1a3a5c',t:"Master's Thesis Document",cat:'Academic Assistance',d:'Formatted 120-page LaTeX thesis in French with bibliography and custom styles.'},
+      {e:'🏢',c:'#0f2f4a',t:'Corporate Brand Identity',cat:'Logo & Design',d:'Complete brand kit: logo, color palette, business card, and letterhead.'},
+      {e:'📈',c:'#122a40',t:'Business Automation Suite',cat:'Automation',d:'n8n workflows connecting CRM, email, and reporting — saving 10+ hours/week.'},
+      {e:'📱',c:'#0a2038',t:'Mobile Task App',cat:'Mobile Dev',d:'React Native productivity app with offline sync and push notifications.'},
+      {e:'📉',c:'#0d2840',t:'Investor Pitch Deck',cat:'Presentation',d:'18-slide PowerPoint with data visualizations and custom illustrations.'},
+    ],
+  },
+  fr: {
+    navS:'Services', navA:'À propos', navP:'Portfolio', navC:'Nous contacter',
+    badge:'Solutions Digitales Professionnelles', slogan:'Boostez Votre Réussite Numérique',
+    sub:"Du développement web à l'aide académique — des services numériques professionnels adaptés à vos besoins.",
+    cta:'Nous contacter →', exp:'Nos services',
+    st1:'Projets réalisés', st2:'Langues', st3:'Satisfaction client',
+    sTag:'Ce Que Nous Offrons', sSub:'Solutions numériques complètes pour particuliers, étudiants et entreprises.',
+    aTag:'Qui Sommes-nous', aDesc:"Prime Tec est un prestataire de solutions numériques offrant développement, aide académique et services créatifs. Nous combinons expertise technique et créativité pour des résultats concrets.",
+    pTag:'Nos Réalisations', pSub:'Un aperçu de notre travail en développement, design et domaines académiques.',
+    cTag:'Contactez-Nous', cTitle:'Contacter <span class="accent">Aya</span>',
+    cSub:"Un projet en tête ? Contactez directement — réponse sous 24 heures.",
+    cEl:'E-mail', cWl:'WhatsApp', waTxt:'Discuter sur WhatsApp',
+    fCopy:'© 2024 <b>Prime Tec</b> · Tous droits réservés',
+    feats:[
+      {i:'🚀',t:'Livraison rapide',d:'Flux de travail efficaces, résultats dans les délais.'},
+      {i:'🌐',t:'Multilingue',d:'Support en arabe, français et anglais.'},
+      {i:'🎯',t:'Solutions sur mesure',d:'Chaque projet adapté à vos besoins.'},
+    ],
+    stats:[{n:'50+',l:'Projets'},{n:'3',l:'Langues'},{n:'5★',l:'Note'},{n:'24h',l:'Réponse'}],
+    svcs:[
+      {e:'💻',t:'Développement Web & Mobile',d:'Applications full-stack React, Node.js, PostgreSQL et PHP. Responsives et modernes.',g:['React','Node.js','PostgreSQL','PHP']},
+      {e:'📝',t:'Assistance Thèse & Rapports',d:"Rédaction en Word et LaTeX. Arabe, français et anglais.",g:['Word','LaTeX','Arabe','Français']},
+      {e:'🎨',t:'Design Logo & CV',d:'Identité visuelle professionnelle et CVs percutants.',g:['Branding','CV','Logo','Figma']},
+      {e:'📐',t:'Cours de Maths & Thèses',d:'Soutien en mathématiques et présentations Beamer.',g:['Beamer','LaTeX','Maths','Cours']},
+      {e:'⚙️',t:"Mise en Place d'Automatisations",d:"Optimisez vos opérations avec n8n et l'automatisation Odoo ERP.",g:['n8n','Odoo','Workflows','ERP']},
+      {e:'📊',t:'Présentations PowerPoint',d:'Slides visuellement percutantes pour pitchs et présentations.',g:['PowerPoint','Design','Diapositives']},
+    ],
+    projs:[
+      {e:'🛒',c:'#0A2540',t:'Plateforme E-Commerce',cat:'Développement Web',d:'Site React + Node.js avec intégration paiement et tableau de bord admin.'},
+      {e:'🎓',c:'#1a3a5c',t:'Mémoire de Master',cat:'Aide Académique',d:'Mémoire LaTeX de 120 pages en français avec bibliographie et styles personnalisés.'},
+      {e:'🏢',c:'#0f2f4a',t:'Identité Visuelle Corporate',cat:'Logo & Design',d:'Kit complet : logo, palette, carte de visite et papier en-tête.'},
+      {e:'📈',c:'#122a40',t:"Suite d'Automatisation",cat:'Automatisation',d:'Workflows n8n connectant CRM, email et reporting — économisant 10+ heures/semaine.'},
+      {e:'📱',c:'#0a2038',t:'Application Mobile',cat:'Mobile Dev',d:'App React Native avec synchronisation hors ligne et notifications push.'},
+      {e:'📉',c:'#0d2840',t:'Pitch Deck Investisseur',cat:'Présentation',d:'18 slides PowerPoint avec visualisations de données et illustrations.'},
+    ],
+  }
+};
+
+let lang = 'en';
+const $ = id => document.getElementById(id);
+const txt = (id,v) => { const e=$(id); if(e) e.textContent=v; };
+const htm = (id,v) => { const e=$(id); if(e) e.innerHTML=v; };
+
+function setLang(l) {
+  lang = l;
+  document.querySelectorAll('.lang-btn').forEach((b,i) => b.classList.toggle('active',(i===0&&l==='en')||(i===1&&l==='fr')));
+  const d = DATA[l];
+  txt('nv-s',d.navS); txt('nv-a',d.navA); txt('nv-p',d.navP); txt('nv-c',d.navC);
+  txt('mn-s',d.navS); txt('mn-a',d.navA); txt('mn-p',d.navP); txt('mn-c',d.navC);
+  txt('hero-badge',d.badge); txt('hero-slogan',d.slogan); txt('hero-sub',d.sub);
+  txt('hero-cta',d.cta); txt('hero-exp',d.exp);
+  txt('st1',d.st1); txt('st2',d.st2); txt('st3',d.st3);
+  txt('s-tag',d.sTag); txt('s-sub',d.sSub);
+  txt('a-tag',d.aTag); txt('a-desc',d.aDesc);
+  txt('p-tag',d.pTag); txt('p-sub',d.pSub);
+  txt('c-tag',d.cTag); htm('c-title',d.cTitle); txt('c-sub',d.cSub);
+  txt('c-el',d.cEl); txt('c-wl',d.cWl); txt('wa-txt',d.waTxt);
+  htm('f-copy',d.fCopy);
+  buildServices(d.svcs);
+  buildPortfolio(d.projs);
+  buildAbout(d.feats, d.stats);
+  observe();
+}
+
+function buildServices(items) {
+  $('services-grid').innerHTML = items.map((s,i)=>`
+    <div class="service-card fade-in d${(i%3)+1}">
+      <div class="service-icon">${s.e}</div>
+      <div class="service-title">${s.t}</div>
+      <p class="service-desc">${s.d}</p>
+      <div class="service-tags">${s.g.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+    </div>`).join('');
+}
+function buildPortfolio(items) {
+  $('portfolio-grid').innerHTML = items.map((p,i)=>`
+    <div class="portfolio-card fade-in d${(i%3)+1}">
+      <div class="portfolio-thumb" style="background:${p.c}"><span class="p-icon">${p.e}</span></div>
+      <div class="portfolio-body">
+        <div class="portfolio-cat">${p.cat}</div>
+        <div class="portfolio-title">${p.t}</div>
+        <p class="portfolio-desc">${p.d}</p>
+      </div>
+    </div>`).join('');
+}
+function buildAbout(feats, stats) {
+  $('about-feats').innerHTML = feats.map(f=>`
+    <div class="about-feature">
+      <div class="about-feature-icon">${f.i}</div>
+      <div class="about-feature-text"><h4>${f.t}</h4><p>${f.d}</p></div>
+    </div>`).join('');
+  $('about-stats').innerHTML = stats.map(s=>`
+    <div class="about-stat-card">
+      <div class="about-stat-num">${s.n}</div>
+      <div class="about-stat-label">${s.l}</div>
+    </div>`).join('');
+}
+function observe() {
+  const io = new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.08});
+  document.querySelectorAll('.fade-in:not(.visible)').forEach(el=>io.observe(el));
+}
+window.addEventListener('scroll',()=>{
+  $('navbar').classList.toggle('scrolled',scrollY>60);
+  $('backTop').classList.toggle('visible',scrollY>400);
+});
+function toggleMobile(){$('mobileMenu').classList.toggle('open');}
+function closeMobile(){$('mobileMenu').classList.remove('open');}
+
+setLang('en');
+</script>
+</body>
+</html>
